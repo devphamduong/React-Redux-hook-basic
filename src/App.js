@@ -1,7 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function App() {
+  const count = useSelector(state => state.user.count);
+  const dispatch = useDispatch();
+
+  const fetchAllUsers = async () => {
+    let res = await axios.get("");
+    const data = res && res.data ? res.data : [];
+  };
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
