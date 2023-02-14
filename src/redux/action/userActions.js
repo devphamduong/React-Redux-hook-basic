@@ -6,6 +6,9 @@ export const FETCH_USERS_ERROR = 'FETCH_USERS_ERROR';
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_ERROR = 'CREATE_USER_ERROR';
+export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+export const DELETE_USER_ERROR = 'DELETE_USER_ERROR';
 
 export const fetchAllUsers = () => {
     return async (dispatch, getState) => {
@@ -61,6 +64,36 @@ export const createUserSuccess = () => {
     };
 };
 export const createUserError = () => {
+    return {
+        type: CREATE_USER_ERROR,
+    };
+};
+
+export const deleteUser = (id) => {
+    return async (dispatch, getState) => {
+        dispatch(deleteUserRequest());
+        try {
+            let res = await axios.post(`http://localhost:8080/users/delete/${id}`);
+            if (res && res.data.errCode === 0) {
+                dispatch(deleteUserSuccess());
+                dispatch(fetchAllUsers());
+            }
+        } catch (error) {
+            dispatch(deleteUserError());
+        }
+    };
+};
+export const deleteUserRequest = () => {
+    return {
+        type: CREATE_USER_REQUEST
+    };
+};
+export const deleteUserSuccess = () => {
+    return {
+        type: CREATE_USER_SUCCESS,
+    };
+};
+export const deleteUserError = () => {
     return {
         type: CREATE_USER_ERROR,
     };

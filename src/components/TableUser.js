@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllUsers } from '../redux/action/userActions';
+import { deleteUser, fetchAllUsers } from '../redux/action/userActions';
 
 function TableUser(props) {
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function TableUser(props) {
     }, []);
 
     const handleDeleteUser = (user) => {
-
+        dispatch(deleteUser(user.id));
     };
 
     return (
@@ -40,10 +40,10 @@ function TableUser(props) {
                 </thead>
                 <tbody>
                     {isError
-                        ? <>Something wrong! Please try again...</>
+                        ? <tr><td>Something wrong! Please try again...</td></tr>
                         : <>
                             {isLoading
-                                ? <>Loading data...</>
+                                ? <tr><td>Loading data...</td></tr>
                                 : <>
                                     {listUsers && listUsers.length > 0 &&
                                         listUsers.map((item, index) => {
