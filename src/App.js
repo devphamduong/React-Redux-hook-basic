@@ -1,9 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
 import Home from './components/Home';
 
 function App() {
-  const count = useSelector(state => state.user.count);
-  const dispatch = useDispatch();
 
   return (
     // <div className="App">

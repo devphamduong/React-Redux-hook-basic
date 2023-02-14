@@ -1,18 +1,23 @@
-import { INCREMENT, DECREMENT } from '../action/userActions';
+import { FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS, FETCH_USERS_ERROR } from '../action/userActions';
 
 const INITIAL_STATE = {
-    count: 0,
+    listUsers: []
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case INCREMENT:
+        case FETCH_USERS_REQUEST:
             return {
-                ...state, count: state.count + 1,
+                ...state
             };
-        case DECREMENT:
+        case FETCH_USERS_SUCCESS:
             return {
-                ...state, count: state.count - 1,
+                ...state,
+                listUsers: action.payload
+            };
+        case FETCH_USERS_ERROR:
+            return {
+                ...state
             };
         default: return state;
     }
